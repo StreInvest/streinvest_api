@@ -1,0 +1,29 @@
+{
+  "name": "streinvest_api",
+  "version": "0.0.1",
+  "description": "api de investimento",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "roda": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StreInvest/streinvest_api.git"
+  },
+  "author": "leobussi && raislervoigt",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/StreInvest/streinvest_api/issues"
+  },
+  "homepage": "https://github.com/StreInvest/streinvest_api#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
