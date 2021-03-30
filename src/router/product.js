@@ -5,26 +5,7 @@ const Product = require('../controller/product');
 
 const router = express.Router();
 
-// router.post('/', Product.postProduct)
-// router.get('/', Product.getProduct)
-
-// router.get('/', auth.autorizar, Adm.getCriar);
-// router.post('/', Adm.postCriar);
-
-// router.get('/deslogar', Adm.getDeslogar);
-// router.get('/todos', auth.autorizar, Adm.buscarTodos);
-
-// router.get('/logar', Adm.getLogar);
-// router.post('/logar', Adm.postLogar);
-
-
-// router.get('/painel', auth.autorizar, Adm.getPainel);
-// router.post('/painel', Adm.postPainel);
-
-// router.get('/criar', auth.autorizar, Morador.getCriar); //auth.autorizar
-// router.post('/criar', Morador.postCriar);
-
-
-
+router.post('/', Product.postProduct)
+router.get('/list', Product.getClient)
 
 module.exports = router;

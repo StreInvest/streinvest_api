@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-
-const consortia = new mongoose.Schema({
-  consortium: {
+const Schema = mongoose.Schema;
+const consorcios = new Schema({
+  consortium_name: {
     type: String,
     required: true,
     trim: true
@@ -16,11 +16,13 @@ const consortia = new mongoose.Schema({
     required: true,
     default: Date.now
   },
-  investments: [
+  investimentos: [
     {
-      type: Schema.Types.ObjectId, ref: 'Investment'
+      type: Schema.Types.Array,
+      ref: 'Investimento',
+      require: false
     }
   ]
 });
 
-module.exports = mongoose.model('Consortium', consortia);
+module.exports = mongoose.model('Consorcio', consorcios);

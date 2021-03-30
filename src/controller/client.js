@@ -10,7 +10,8 @@ const modelo = mongoose.model('User');
 
 exports.getClient = async (req, res, next) => {
   try {
-    return res.json({ 'teste': 'treste' });
+    const response = await modelo.find({});
+    return res.json(response);
   } catch (err) {
     next(err);
   }

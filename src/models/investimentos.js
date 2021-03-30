@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
-const investments = new mongoose.Schema({
+const Schema = mongoose.Schema;
+const investimentos = new Schema({
   investment_name: {
     type: String,
     required: false,
@@ -23,9 +23,11 @@ const investments = new mongoose.Schema({
   },
   profitability: [
     {
-      type: Schema.Types.ObjectId, ref: 'Profitability'
+      type: Schema.Types.Object,
+      ref: 'Rentabilidade',
+      require: false
     }
   ]
 });
 
-module.exports = mongoose.model('Investment', investments);
+module.exports = mongoose.model('Investimento', investimentos);
