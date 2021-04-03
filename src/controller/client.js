@@ -21,8 +21,12 @@ exports.getClient = async (req, res, next) => {
 
 exports.postClient = async (req, res, next) => {
   try {
-    await new modelo(req.body).save();
-    return res.json(req.body)
+    const response = await new modelo(req.body).save();
+    if(!response){
+      return res.json({"error": "erro na requisição"})
+    }
+    return res.json({response, status: 200})
+
   }
   catch (err) {
     next(err);
