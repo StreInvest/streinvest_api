@@ -1,5 +1,3 @@
-// const auth = require('../middleware/auth');
-
 const mongoose = require('mongoose');
 require('../models/users');
 const modelo = mongoose.model('User');

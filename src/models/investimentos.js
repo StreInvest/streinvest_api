@@ -21,13 +21,11 @@ const investimentos = new Schema({
     type: String,
     required: false
   },
-  profitability: [
-    {
+  profitability: {
       type: Schema.Types.Object,
       ref: 'Rentabilidade',
       require: false
     }
-  ]
 });
 
 module.exports = mongoose.model('Investimento', investimentos);

@@ -16,13 +16,11 @@ const consorcios = new Schema({
     required: true,
     default: Date.now
   },
-  investimentos: [
-    {
+  investimentos: {
       type: Schema.Types.Array,
       ref: 'Investimento',
       require: false
     }
-  ]
 });
 
 module.exports = mongoose.model('Consorcio', consorcios);
