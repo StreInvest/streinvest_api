@@ -3,28 +3,29 @@ const Schema = mongoose.Schema;
 const investimentos = new Schema({
   investment_name: {
     type: String,
-    required: false,
+    required: true,
+    unique: true,
     trim: true
   },
   status: {
     type: String,
-    required: false,
+    required: true,
     enum: ['Open', 'Close']
   },
   risk: {
     type: String,
-    required: false,
+    required: true,
     enum:
       ['Severe ', ' Moderate ', ' Safe ']
   },
   category: {
     type: String,
-    required: false
+    required: true
   },
   profitability: {
       type: Schema.Types.Object,
       ref: 'Rentabilidade',
-      require: false
+      require: true
     }
 });
 

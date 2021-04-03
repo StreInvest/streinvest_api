@@ -29,10 +29,10 @@ exports.getConsortium = async (req, res, next) => {
 exports.postConsortium = async (req, res, next) => {
   try {
     const {token} = req.params
-    const user = await modeloUser.find({token, master: true})
+    const user = await modeloUser.findOne({token, master: true})
     if(user){
-      const resposta = await new modelo(req.body).save();
-      return res.json(resposta)
+      const response = await new modelo(req.body).save();
+      return res.json({response, "status": 200})
     }
     else {
       return res.json({ response: "you don't have access"})

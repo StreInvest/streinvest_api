@@ -4,6 +4,7 @@ const consorcios = new Schema({
   consortium_name: {
     type: String,
     required: true,
+    unique: true,
     trim: true
   },
   created_at: {
@@ -19,7 +20,7 @@ const consorcios = new Schema({
   investimentos: {
       type: Schema.Types.Array,
       ref: 'Investimento',
-      require: false
+      require: true
     }
 });
 
