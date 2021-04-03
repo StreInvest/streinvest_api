@@ -6,8 +6,5 @@ module.exports = {
   },
   database: {
     connection: 'mongodb+srv://rpg:rpg@cluster0.0ddez.mongodb.net/streinvest?retryWrites=true&w=majority'
-  },
-  auth: {
-    secret: 'c1c2c3c4c5'
   }
 }
