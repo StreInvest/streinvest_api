@@ -1,20 +1,43 @@
 const mongoose = require('mongoose');
+const crypto = require('crypto')
+const jwt = require('jsonwebtoken')
+
+function geraToken(length) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
 
 const users = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    min: 6,
+    max: 20
   },
   email: {
     type: String,
     required: true,
+    unique: true,
+    min: 10,
+    max: 40,
     trim: true
   },
   password: {
     type: String,
     required: true,
-    trim: true
+    trim: true, 
+    set: value => 
+      crypto
+      .createHash('md5')
+      .update(value)
+      .digest('hex')
   },
   master: {
     type: Boolean,
@@ -24,7 +47,7 @@ const users = new mongoose.Schema({
   token: {
     type: String,
     required: true,
-    default: 'test_123456'
+    default: geraToken(20)
   },
   created_at: {
     type: Date,
@@ -37,5 +60,6 @@ const users = new mongoose.Schema({
     default: Date.now
   }
 });
+
 
 module.exports = mongoose.model('User', users);

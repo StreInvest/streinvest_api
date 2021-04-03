@@ -1,5 +1,3 @@
-// const cript = require('bcrypt');
-// const storage = require('localtoken');
 // const auth = require('../middleware/auth');
 
 const mongoose = require('mongoose');
@@ -21,10 +19,8 @@ exports.getClient = async (req, res, next) => {
 
 exports.postClient = async (req, res, next) => {
   try {
-    const response = await new modelo(req.body).save();
-    if(!response){
-      return res.json({"error": "erro na requisição"})
-    }
+    const dados = req.body
+    const response = await new modelo(dados).save();
     return res.json({response, status: 200})
 
   }
