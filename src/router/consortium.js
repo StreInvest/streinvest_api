@@ -4,7 +4,7 @@ const Product = require('../controller/consortium');
 
 const router = express.Router();
 
-router.post('/new/:token', Product.postConsortium)
-router.get('/:token', Product.getConsortium)
+router.post('/', Product.postConsortium)
+router.get('/list', Product.getConsortium)
 
 module.exports = router;
