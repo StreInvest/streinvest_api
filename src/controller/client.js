@@ -14,6 +14,16 @@ exports.getClient = async (req, res, next) => {
   }
 }
 
+exports.getClientEspecifico = async (req, res, next) => {
+  try {
+    var {id} = req.params
+    const response = await modelo.findById(id);
+    return res.json(response);
+  } catch (err) {
+    next(err);
+  }
+}
+
 
 
 exports.postClient = async (req, res, next) => {
@@ -24,6 +34,53 @@ exports.postClient = async (req, res, next) => {
     const response = await new modelo(dados).save();
     return res.json({response, status: 200})
 
+  }
+  catch (err) {
+    next(err);
+  }
+}
+
+exports.putClient = async (req, res, next) => {
+  try {
+    const {id} = req.params
+    const dados = req.body
+    const response = await modelo.findByIdAndUpdate(id, dados);
+
+    if(response){
+      var resp = await modelo.findById(id);
+      return res.json({resp, status: 201})
+    }
+  }
+  catch (err) {
+    next(err);
+  }
+}
+
+exports.putClientRecover = async (req, res, next) => {
+  try {
+    const { id } = req.params
+
+    var dados = jwt.sign({user: modelo.email}, 'Abc!23').toString()
+    var token = dados.slice(62,105)
+    const response = await modelo.findByIdAndUpdate(id, {token});
+
+    if(response){
+      const resp = await modelo.findById(id);
+      return res.json({resp, status: 201})
+    }
+  }
+  catch (err) {
+    next(err);
+  }
+}
+
+exports.deleteClientDelete = async (req, res, next) => {
+  try {
+    const { id } = req.params
+
+    await modelo.findByIdAndDelete(id);
+
+    return res.json({response: "deleted with success", status: 200})
   }
   catch (err) {
     next(err);

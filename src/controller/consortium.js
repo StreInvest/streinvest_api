@@ -10,10 +10,21 @@ const modelo = mongoose.model('Consorcio');
 exports.getConsortium = async (req, res, next) => {
   try {
     const {token} = req.params
+    const { consorcio, categoria } = req.query
     const user = await modeloUser.findOne({token: token})
     if (user){
-      const response = await modelo.find({});
-      return res.json(response);
+      if(consorcio != undefined  || consorcio !=  null){
+        // const resp = await modelo.find({consortium_name: consorcio});
+        const resp = await modelo.find({ consortium_name:  consorcio });
+        // 
+        return res.json(resp);
+      }
+      else{
+        const response = await modelo.find({});
+        return res.json(response);
+      }
+
+    
     }
     else {
       return res.json({response: "token invalid"})
@@ -25,6 +36,23 @@ exports.getConsortium = async (req, res, next) => {
 }
 
 
+exports.getInvestNameSelect = async (req, res, next) => {
+  try {
+    const {token} = req.params
+
+    const user = await modeloUser.findOne({token: token})
+    if (user){
+      const response = await modelo.find({}, {consortium_name: 1, _id: 1});
+      return res.json({response, status: 200})
+    }
+    else {
+      return res.json({response: "token invalid"})
+    }
+    
+  } catch (err) {
+    next(err);
+  }
+}
 
 exports.postConsortium = async (req, res, next) => {
   try {
@@ -35,7 +63,60 @@ exports.postConsortium = async (req, res, next) => {
       return res.json({response, "status": 200})
     }
     else {
-      return res.json({ response: "you don't have access"})
+      return res.json({ response: "you don't have access", status: 403})
+    }
+  }
+  catch (err) {
+    console.log(err)
+    next(err);
+  }
+}
+
+exports.getCategory = async (req, res, next) => {
+  try {
+    const {token} = req.params
+    const { category } = req.query
+    const user = await modeloUser.findOne({token})
+    if(user){
+      // const response = await modelo.find({ "investimentos.category": {$eq: category} });
+      const response = await  modelo.aggregate(
+        [
+          { $match: {
+              "investimentos.category": { $eq: category  } } 
+          }
+        ]);
+      return res.json({response, "status": 200})
+    }
+
+    
+    // "profitability": {
+    //   "day": "00.30",
+    //   "month": "20.00",
+    //   "year": "120.00"
+    else {
+      return res.json({ response: "you don't have access", status: 403})
+    }
+  }
+  catch (err) {
+    console.log(err)
+    next(err);
+  }
+}
+
+
+exports.putConsortium = async (req, res, next) => {
+  try {
+    const {token, id} = req.params
+    const dados = req.body
+    const user = await modeloUser.findOne({token, master: true})
+    if(user){
+      const response = await modelo.findByIdAndUpdate(id, dados);
+
+      const resp = await modelo.findById(id)
+      return res.json({resp, "status": 200})
+    }
+    else {
+      return res.json({ response: "you don't have access", status: 403})
     }
   }
   catch (err) {
