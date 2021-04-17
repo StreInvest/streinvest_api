@@ -78,21 +78,22 @@ exports.getCategory = async (req, res, next) => {
     const { category } = req.query
     const user = await modeloUser.findOne({token})
     if(user){
-      // const response = await modelo.find({ "investimentos.category": {$eq: category} });
-      const response = await  modelo.aggregate(
-        [
-          { $match: {
-              "investimentos.category": { $eq: category  } } 
-          }
-        ]);
+      const response = await modelo.find({ "investimentos.category": {$eq: category} }, {
+        "investimentos.investment_name": 1,
+        "investimentos.status": 1,
+        "investimentos.risk": 1,
+        "investimentos.category": 1,
+        "investimentos.profitability": 1,
+        "_id": 0
+      });
+      // const response = await  modelo.aggregate(
+      //   [
+      //     { $match: {
+      //         "investimentos.category": { $eq: category  } } 
+      //     }
+      //   ]);
       return res.json({response, "status": 200})
     }
-
-    
-    // "profitability": {
-    //   "day": "00.30",
-    //   "month": "20.00",
-    //   "year": "120.00"
     else {
       return res.json({ response: "you don't have access", status: 403})
     }
