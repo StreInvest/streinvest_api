@@ -44,11 +44,13 @@ exports.putClient = async (req, res, next) => {
   try {
     const {id} = req.params
     const dados = req.body
-    const response = await modelo.findByIdAndUpdate(id, dados);
+    var now = new Date()
+    dados['updated_at'] = now
+    const resp = await modelo.findByIdAndUpdate(id, dados);
 
-    if(response){
-      var resp = await modelo.findById(id);
-      return res.json({resp, status: 201})
+    if(resp){
+      var response = await modelo.findById(id);
+      return res.json({response, status: 201})
     }
   }
   catch (err) {
@@ -62,7 +64,8 @@ exports.putClientRecover = async (req, res, next) => {
 
     var dados = jwt.sign({user: modelo.email}, 'Abc!23').toString()
     var token = dados.slice(62,105)
-    const response = await modelo.findByIdAndUpdate(id, {token});
+    var now = new Date()
+    const response = await modelo.findByIdAndUpdate(id, {token: token, updated_at: now});
 
     if(response){
       const resp = await modelo.findById(id);
