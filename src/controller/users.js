@@ -30,7 +30,7 @@ exports.postClient = async (req, res, next) => {
   try {
     const dados = req.body
     var token = jwt.sign({user: modelo.email}, 'Abc!23').toString()
-    dados["token"] = token.slice(62,105) 
+    dados["token"] = token.slice(85,105) 
     const response = await new modelo(dados).save();
     return res.json({response, status: 200})
 
@@ -63,7 +63,7 @@ exports.putClientRecover = async (req, res, next) => {
     const { id } = req.params
 
     var dados = jwt.sign({user: modelo.email}, 'Abc!23').toString()
-    var token = dados.slice(62,105)
+    var token = dados.slice(85,105)
     var now = new Date()
     const response = await modelo.findByIdAndUpdate(id, {token: token, updated_at: now});
 
@@ -81,9 +81,14 @@ exports.deleteClientDelete = async (req, res, next) => {
   try {
     const { id } = req.params
 
-    await modelo.findByIdAndDelete(id);
+    const resp = await modelo.findByIdAndDelete(id);
 
-    return res.json({response: "deleted with success", status: 200})
+    if(resp){
+      return res.json({response: "Deleted with success", status: 204})
+    }else{
+      return res.json({response: "User already deleted", status: 404})
+    }
+
   }
   catch (err) {
     next(err);
