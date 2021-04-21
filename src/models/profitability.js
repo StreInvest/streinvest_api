@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const rentabilidades = new mongoose.Schema({
+const profitability = new mongoose.Schema({
   day: {
     type: String,
     required: false,
@@ -18,4 +18,4 @@ const rentabilidades = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Rentabilidade', rentabilidades);
+module.exports = mongoose.model('Profitability', profitability);

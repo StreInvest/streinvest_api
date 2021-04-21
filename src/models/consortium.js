@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const consorcios = new Schema({
+const consortium = new Schema({
   consortium_name: {
     type: String,
     required: true,
@@ -16,12 +16,7 @@ const consorcios = new Schema({
     type: Date,
     required: true,
     default: Date.now
-  },
-  investimentos: {
-      type: Schema.Types.Array,
-      ref: 'Investimento',
-      require: true
-    }
+  }
 });
 
-module.exports = mongoose.model('Consorcio', consorcios);
+module.exports = mongoose.model('Consortiums', consortium);

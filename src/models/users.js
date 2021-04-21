@@ -1,16 +1,5 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto')
-const jwt = require('jsonwebtoken') 
-
-// function geraToken(length, characters) {
-//   var result           = '';
-//   // var characters       = `b23cdefBCIJKLDEFGH6TUVWXYZagMNOPQRSjklmnopqrstxyz01uvw45789`;
-//   var charactersLength = characters.length;
-//   for ( var i = 0; i < length; i++ ) {
-//      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-//   }
-//   return result;
-// }
 
 const users = new mongoose.Schema({
   name: {
