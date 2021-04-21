@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto')
+const keys = require('../../config/keys')
 
 const users = new mongoose.Schema({
   name: {
@@ -19,13 +20,11 @@ const users = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
-    trim: true, 
+    required: true, 
     set: value => 
       crypto
-      .createHash('md5')
-      .update(value)
-      .digest('hex')
+      .createCipher(keys.criptoPasswd.alg, keys.criptoPasswd.hash)
+      .update(value, keys.criptoPasswd.encode_in, keys.criptoPasswd.encode_out)
   },
   master: {
     type: Boolean,

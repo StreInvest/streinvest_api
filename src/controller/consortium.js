@@ -21,7 +21,7 @@ exports.postConsortium = async (req, res, next) => {
       return res.json({response, "status": 200})
     }
     else {
-      return res.json({ response: "you don't have access", status: 403})
+      return res.json({ response: "you don't have access", status: 401})
     }
   }
   catch (err) {
@@ -46,7 +46,7 @@ exports.getConsortium = async (req, res, next) => {
         }
       }
       else {
-        return res.json({response: "token invalid"})
+        return res.json({response: "token invalid", status: 401})
       }
       
     } catch (err) {
@@ -78,7 +78,7 @@ exports.getConsortium = async (req, res, next) => {
           }
         }
         else {
-          return res.json({ response: "you don't have access", status: 403})
+          return res.json({ response: "you don't have access", status: 401})
         }
       }
       catch (err) {
@@ -94,10 +94,14 @@ exports.getConsortium = async (req, res, next) => {
       const user = await modeloUser.findOne({token, master: true})
 
       if(user){
-        await modelo.findByIdAndDelete(id);
-        return res.json({response: "deleted with success", status: 200})
+        const resp = await modelo.findByIdAndDelete(id);
+        if(resp){
+          return res.json({response: "deleted with success", status: 200})
+        }else{
+          return res.json({response: "User already deleted", status: 404})
+        }
       }else{
-        return res.json({ response: "you don't have access", status: 403})
+        return res.json({ response: "you don't have access", status: 401})
       } 
   
     }
@@ -117,7 +121,7 @@ exports.postInvest = async (req, res, next) => {
       return res.json({response, "status": 200})
     }
     else {
-      return res.json({ response: "you don't have access", status: 403})
+      return res.json({ response: "you don't have access", status: 401})
     }
   }
   catch (err) {
@@ -151,7 +155,7 @@ exports.getInvest = async (req, res, next) => {
     
     }
     else {
-      return res.json({response: "token invalid"})
+      return res.json({ response: "you don't have access", status: 401})
     }
     
   } catch (err) {
@@ -177,7 +181,7 @@ exports.putInvest = async (req, res, next) => {
         return res.json({
           response: 
           "it was not possible to update, check the data is being sent correctly", 
-          status: 201
+          status: 204
         })
       }
     }
@@ -198,8 +202,12 @@ exports.deleteInvest = async (req, res, next) => {
     const user = await modeloUser.findOne({token, master: true})
 
     if(user){
-      await modeloInvest.findByIdAndDelete(id);
-      return res.json({response: "deleted with success", status: 200})
+      const resp = await modeloInvest.findByIdAndDelete(id);
+      if(resp){
+        return res.json({response: "deleted with success", status: 200})
+      }else{
+        return res.json({response: "User already deleted", status: 404})
+      }
     }else{
       return res.json({ response: "you don't have access", status: 403})
     } 
