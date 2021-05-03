@@ -1,15 +1,10 @@
-const express = require('express');
-const app = express();
-const rota = require('./src/router');
-const bodyParser = require('body-parser');
+const app = require('./config/initialize');
+const keys = require('./config/keys');
+const connection = require('./src/middleware/connection');
 
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
 
-app.use('/', rota);
-
-var porta = process.env.PORT || 3000
-app.listen( porta, (err) => {
+app.listen(keys.server.port, (err) => {
+  connection.connect();
   if (err) {
     console.log('==> [-]  falha na aplicação');
   } else {
