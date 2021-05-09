@@ -1,6 +1,16 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto')
-const keys = require('../../config/keys')
+const jwt = require('jsonwebtoken') 
+
+// function geraToken(length, characters) {
+//   var result           = '';
+//   // var characters       = `b23cdefBCIJKLDEFGH6TUVWXYZagMNOPQRSjklmnopqrstxyz01uvw45789`;
+//   var charactersLength = characters.length;
+//   for ( var i = 0; i < length; i++ ) {
+//      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+//   }
+//   return result;
+// }
 
 const users = new mongoose.Schema({
   name: {
@@ -20,11 +30,13 @@ const users = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true, 
+    required: true,
+    trim: true, 
     set: value => 
       crypto
-      .createCipher(keys.criptoPasswd.alg, keys.criptoPasswd.hash)
-      .update(value, keys.criptoPasswd.encode_in, keys.criptoPasswd.encode_out)
+      .createHash('md5')
+      .update(value)
+      .digest('hex')
   },
   master: {
     type: Boolean,
