@@ -7,7 +7,7 @@ router.get('/lists', Client.getClient);
 router.put('/:id', Client.putClient);
 router.get('/:id', Client.getClientEspecifico);
 router.put('/recover/:id', Client.putClientRecover);
-router.delete('/destroy/:id', Client.deleteClientDelete);
+router.delete('/:id', Client.deleteClient);
 
 
 module.exports = router;
