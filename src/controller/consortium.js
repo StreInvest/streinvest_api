@@ -91,10 +91,8 @@ try {
     }
   }else{
     return res.json({ response: "you don't have access", status: 401})
-  } 
-
-}
-catch (err) {
-  next(err);
-}
+  }
+  catch (err) {
+    next(err);
+  }
 }
