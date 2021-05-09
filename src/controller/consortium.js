@@ -77,20 +77,21 @@ exports.putConsortium = async (req, res, next) => {
 }
 
 exports.deleteConsorcio = async (req, res, next) => {
-try {
-  const { id, token } = req.params
+  try {
+    const { id, token } = req.params
 
-  const user = await modeloUser.findOne({token, master: true})
+    const user = await modeloUser.findOne({token, master: true})
 
-  if(user){
-    const resp = await modelo.findByIdAndDelete(id);
-    if(resp){
-      return res.json({response: "deleted with success", status: 200})
+    if(user){
+      const resp = await modelo.findByIdAndDelete(id);
+      if(resp){
+        return res.json({response: "deleted with success", status: 200})
+      }else{
+        return res.json({response: "User already deleted", status: 404})
+      }
     }else{
-      return res.json({response: "User already deleted", status: 404})
+      return res.json({ response: "you don't have access", status: 401})
     }
-  }else{
-    return res.json({ response: "you don't have access", status: 401})
   }
   catch (err) {
     next(err);
