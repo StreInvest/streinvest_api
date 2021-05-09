@@ -14,13 +14,23 @@ exports.getClient = async (req, res, next) => {
   }
 }
 
+exports.getClientEspecifico = async (req, res, next) => {
+  try {
+    var {id} = req.params
+    const response = await modelo.findById(id);
+    return res.json(response);
+  } catch (err) {
+    next(err);
+  }
+}
+
 
 
 exports.postClient = async (req, res, next) => {
   try {
     const dados = req.body
     var token = jwt.sign({user: modelo.email}, 'Abc!23').toString()
-    dados["token"] = token.slice(62,105) 
+    dados["token"] = token.slice(85,105) 
     const response = await new modelo(dados).save();
     return res.json({response, status: 200})
 
@@ -48,6 +58,24 @@ exports.putClient = async (req, res, next) => {
   }
 }
 
+exports.putClientRecover = async (req, res, next) => {
+  try {
+    const { id } = req.params
+
+    var dados = jwt.sign({user: modelo.email}, 'Abc!23').toString()
+    var token = dados.slice(85,105)
+    var now = new Date()
+    const response = await modelo.findByIdAndUpdate(id, {token: token, updated_at: now});
+
+    if(response){
+      const resp = await modelo.findById(id);
+      return res.json({resp, status: 201})
+    }
+  }
+  catch (err) {
+    next(err);
+  }
+}
 
 exports.deleteClient = async (req, res, next) => {
   try {
