@@ -35,7 +35,8 @@ exports.postInvest = async (req, res, next) => {
   exports.getInvest = async (req, res, next) => {
     try {
       const {token} = req.params
-      const { consortium, category, limit = 10, page = 1 } = req.query
+      const { consortium, category, limit = 10, page = 1, order = 1 } = req.query
+      var orderNum = order == 'desc' ? -1 : 1
       const user = await modeloUser.findOne({token: token})
       if(user){
         if(consortium != undefined || category != undefined){
@@ -43,6 +44,7 @@ exports.postInvest = async (req, res, next) => {
           if(consu){
             const response = await modeloInvest.find({consortium:  consu._id})
                                   .populate('consortium')
+                                  .sort({ created_at: orderNum })
                                   .limit(limit * 1)
                                   .skip((page - 1)*limit);
             return res.json({
@@ -52,6 +54,7 @@ exports.postInvest = async (req, res, next) => {
           }else{
             const response = await modeloInvest.find({category:  category})
                                     .populate('consortium')
+                                    .sort({ created_at: orderNum })
                                     .limit(limit * 1)
                                     .skip((page - 1)*limit);
             return res.json({
@@ -63,6 +66,7 @@ exports.postInvest = async (req, res, next) => {
         else{
           const response = await modeloInvest.find({})
                             .populate('consortium')
+                            .sort({ created_at: orderNum })
                             .limit(limit * 1)
                             .skip((page - 1)*limit);
           return res.json({

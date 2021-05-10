@@ -33,11 +33,13 @@ exports.postConsortium = async (req, res, next) => {
 exports.getConsortium = async (req, res, next) => {
     try {
       const {token} = req.params
-      const { consortium, limit = 10, page = 1 } = req.query
+      const { consortium, limit = 10, page = 1, order = 1 } = req.query
+      var orderNum = order == 'desc' ? -1 : 1
       const user = await modeloUser.findOne({token: token})
       if (user){
         if(consortium != undefined  || consortium !=  null){
           const response = await modelo.find({ consortium_name:  consortium })
+                                  .sort({ created_at: orderNum })
                                   .limit(limit * 1).skip((page -1)*limit);
           return res.json({
             response,
@@ -49,7 +51,7 @@ exports.getConsortium = async (req, res, next) => {
             status: 200});
         }
         else{
-          const response = await modelo.find({}).limit(limit * 1).skip((page -1)*limit);
+          const response = await modelo.find({}).sort({ created_at: orderNum }).limit(limit * 1).skip((page -1)*limit);
           return res.json({
             response,  
             paginate: { 
