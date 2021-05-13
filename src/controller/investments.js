@@ -86,6 +86,24 @@ exports.postInvest = async (req, res, next) => {
     }
   }
   
+  exports.getInvestEspecif = async (req, res, next) => {
+    try {
+      const {token, id} = req.params
+      const user = await modeloUser.findOne({token: token})
+      if(user){
+      const response = await modeloInvest.findOne({_id:  id}).populate('consortium')      
+      return res.json({ response, status: 200 });
+      }
+      else {
+        return res.json({ response: "you don't have access", status: 401})
+      }
+      
+    } catch (err) {
+      next(err);
+    }
+  }
+
+
   exports.putInvest = async (req, res, next) => {
     try {
       const {token, id} = req.params
