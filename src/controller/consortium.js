@@ -7,10 +7,14 @@ const modeloUser = mongoose.model('User');
 require('../models/consortium');
 const modelo = mongoose.model('Consortiums');
 
+
 require('../models/investments');
 const modeloInvest = mongoose.model('Investments');
 
-// **************** Consorcio  *****************
+require('../models/investments');
+const modeloInvest = mongoose.model('Investments');
+
+
 
 exports.postConsortium = async (req, res, next) => {
   try {
@@ -68,8 +72,8 @@ exports.getConsortium = async (req, res, next) => {
       
     } catch (err) {
       next(err);
-    }
-  }
+
+
 
 
   exports.putConsortium = async (req, res, next) => {

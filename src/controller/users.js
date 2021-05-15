@@ -77,6 +77,7 @@ exports.putClientRecover = async (req, res, next) => {
   }
 }
 
+
 exports.deleteClient = async (req, res, next) => {
   try {
     const { id } = req.params
