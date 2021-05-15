@@ -8,7 +8,9 @@ const modeloUser = mongoose.model('User');
 
 exports.getTest = async (req, res, next) => {
       try {
-        const response = await modelo.find({}).populate('consortium').limit(1);
+        const { page = 1, limit = 10 } = req.query
+        const response = await modelo.find({}).populate('consortium').sort({ created_at: 1 }).limit(limit * 1).skip((page - 1)*limit);
+
         return res.json({response, status: 200});
     
       } catch (err) {
