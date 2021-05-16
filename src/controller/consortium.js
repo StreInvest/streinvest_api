@@ -31,7 +31,7 @@ exports.postConsortium = async (req, res, next) => {
 exports.getConsortium = async (req, res, next) => {
     try {
       const {token} = req.params
-      const { consortium, limit = 10, page = 1, order = 1 } = req.query
+      const { consortium, limit = 10, page = 1, order = 'asc' } = req.query
       var orderNum = order == 'desc' ? -1 : 1
       const user = await modeloUser.findOne({token: token})
       if (user){
