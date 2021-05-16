@@ -8,12 +8,6 @@ require('../models/consortium');
 const modelo = mongoose.model('Consortiums');
 
 
-require('../models/investments');
-const modeloInvest = mongoose.model('Investments');
-
-require('../models/investments');
-const modeloInvest = mongoose.model('Investments');
-
 
 
 exports.postConsortium = async (req, res, next) => {
@@ -22,10 +16,10 @@ exports.postConsortium = async (req, res, next) => {
     const user = await modeloUser.findOne({token, master: true})
     if(user){
       const response = await new modelo(req.body).save();
-      return res.json({response, "status": 200})
+      return res.status(201).json({response, "status": 201})
     }
     else {
-      return res.json({ response: "you don't have access", status: 401})
+      return res.status(401).json({ response: "you don't have access", status: 401})
     }
   }
   catch (err) {
@@ -45,7 +39,7 @@ exports.getConsortium = async (req, res, next) => {
           const response = await modelo.find({ consortium_name:  consortium })
                                   .sort({ created_at: orderNum })
                                   .limit(limit * 1).skip((page -1)*limit);
-          return res.json({
+          return res.status(200).json({
             response,
             paginate: { 
               limit, 
@@ -56,7 +50,7 @@ exports.getConsortium = async (req, res, next) => {
         }
         else{
           const response = await modelo.find({}).sort({ created_at: orderNum }).limit(limit * 1).skip((page -1)*limit);
-          return res.json({
+          return res.status(200).json({
             response,  
             paginate: { 
               limit, 
@@ -67,13 +61,14 @@ exports.getConsortium = async (req, res, next) => {
         }
       }
       else {
-        return res.json({response: "token invalid", status: 401})
+        return res.status(401).json({response: "token invalid", status: 401})
       }
       
     } catch (err) {
       next(err);
 
-
+    }
+  }
 
 
   exports.putConsortium = async (req, res, next) => {
@@ -88,18 +83,18 @@ exports.getConsortium = async (req, res, next) => {
           const resp = await modelo.findByIdAndUpdate(id, dados);
           if(resp){
             const response = await modelo.findById(id)
-            return res.json({response, "status": 201})
+            return res.status(200).json({response, "status": 200})
           }
           else{
-            return res.json({
+            return res.status(400).json({
               response: 
               "it was not possible to update, check the data is being sent correctly", 
-              status: 201
+              status: 400
             })
           }
         }
         else {
-          return res.json({ response: "you don't have access", status: 401})
+          return res.status(401).json({ response: "you don't have access", status: 401})
         }
       }
       catch (err) {
@@ -117,16 +112,16 @@ exports.getConsortium = async (req, res, next) => {
       if(user){
         const resp = await modelo.findByIdAndDelete(id);
         if(resp){
-          return res.json({response: "deleted with success", status: 200})
+          return res.status(204).json({})
         }else{
-          return res.json({response: "User already deleted", status: 404})
+          return res.status(404).json({response: "User already deleted", status: 404})
         }
       }else{
-        return res.json({ response: "you don't have access", status: 401})
+        return res.status(401).json({ response: "you don't have access", status: 401})
       } 
   
     }
     catch (err) {
       next(err);
     }
-}
+  }

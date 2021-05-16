@@ -6,7 +6,7 @@ router.post('/', Client.postClient);
 router.get('/lists', Client.getClient);
 router.put('/:id', Client.putClient);
 router.get('/:id', Client.getClientEspecifico);
-router.put('/recover/:id', Client.putClientRecover);
+router.get('/recover/:id', Client.getClientRecover);
 
 router.delete('/:id', Client.deleteClient);
 
