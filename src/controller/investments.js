@@ -22,7 +22,7 @@ exports.postInvest = async (req, res, next) => {
       return res.status(201).json({response, "status": 201})
     }
     else {
-      return res.json({ response: "you don't have access", status: 401})
+      return res.status(401).json({ response: "you don't have access", status: 401})
     }
   }
   catch (err) {
