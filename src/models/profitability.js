@@ -3,18 +3,21 @@ const mongoose = require('mongoose');
 const profitability = new mongoose.Schema({
   day: {
     type: String,
-    required: false,
-    trim: true
+    required: true,
+    trim: true,
+    default: "0"
   },
   month: {
     type: String,
-    required: false,
-    trim: true
+    required: true,
+    trim: true,
+    default: "0"
   },
   year: {
     type: String,
-    required: false,
-    trim: true
+    required: true,
+    trim: true,
+    default: "0"
   },
   score: {
     type: String,

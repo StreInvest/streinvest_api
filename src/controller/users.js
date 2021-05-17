@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 exports.getClient = async (req, res, next) => {
   try {
     const response = await modelo.find({});
-    return res.json(response);
+    return res.status(200).json({response, status: 200 });
   } catch (err) {
     next(err);
   }
@@ -18,7 +18,7 @@ exports.getClientEspecifico = async (req, res, next) => {
   try {
     var {id} = req.params
     const response = await modelo.findById(id);
-    return res.json(response);
+    return res.status(200).json({response, status: 200});
   } catch (err) {
     next(err);
   }
@@ -32,8 +32,7 @@ exports.postClient = async (req, res, next) => {
     var token = jwt.sign({user: modelo.email}, 'Abc!23').toString()
     dados["token"] = token.slice(85,105) 
     const response = await new modelo(dados).save();
-    return res.json({response, status: 200})
-
+    return res.status(201).json({response, status: 201})
   }
   catch (err) {
     next(err);
@@ -50,7 +49,7 @@ exports.putClient = async (req, res, next) => {
 
     if(resp){
       var response = await modelo.findById(id);
-      return res.json({response, status: 201})
+      return res.status(200).json({response, status: 200})
     }
   }
   catch (err) {
@@ -58,7 +57,7 @@ exports.putClient = async (req, res, next) => {
   }
 }
 
-exports.putClientRecover = async (req, res, next) => {
+exports.getClientRecover = async (req, res, next) => {
   try {
     const { id } = req.params
 
@@ -69,7 +68,7 @@ exports.putClientRecover = async (req, res, next) => {
 
     if(response){
       const resp = await modelo.findById(id);
-      return res.json({resp, status: 201})
+      return res.status(200).json({resp, status: 200})
     }
   }
   catch (err) {
@@ -85,9 +84,9 @@ exports.deleteClient = async (req, res, next) => {
     const resp = await modelo.findByIdAndDelete(id);
 
     if(resp){
-      return res.json({response: "Deleted with success", status: 204})
+      return res.status(204)
     }else{
-      return res.json({response: "User already deleted", status: 404})
+      return res.status(404).json({response: "User already deleted", status: 404})
     }
 
   }
