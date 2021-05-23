@@ -65,28 +65,6 @@ exports.getInvest = async (req, res, next) => {
             status: 200});
         }
       }
-      // if(consortium == 'all'){
-      //   const response = await modeloInvest.find({})
-      //                     .populate('consortium')
-      //                     .sort({ created_at: orderNum })
-      //                     .limit(limit * 1)
-      //                     .skip((page - 1)*limit);
-      //   return res.status(200).json({
-      //     response, 
-      //     paginate: { limit, page, totalCurrentPage: response.length+"" }, 
-      //     status: 200});
-      // }
-      // if(consortium == 'all'){
-      //   const response = await modeloInvest.find({})
-      //                     .populate('consortium')
-      //                     .sort({ created_at: orderNum })
-      //                     .limit(limit * 1)
-      //                     .skip((page - 1)*limit);
-      //   return res.status(200).json({
-      //     response, 
-      //     paginate: { limit, page, totalCurrentPage: response.length+"" }, 
-      //     status: 200});
-      // }
       else{
         const response = await modeloInvest.find({})
                           .populate('consortium')
