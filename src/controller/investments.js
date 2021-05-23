@@ -39,7 +39,9 @@ exports.getInvest = async (req, res, next) => {
     var orderNum = order == 'desc' ? -1 : 1
     const user = await modeloUser.findOne({token: token})
     if(user){
-      if(consortium != undefined || category != undefined){
+      let con = consortium == 'all' ? undefined : consortium
+      let cat = category == 'all' ? undefined : category
+      if(con != undefined || cat != undefined){
         const consu = await modelo.findOne({consortium_name: consortium});
         if(consu){
           const response = await modeloInvest.find({consortium:  consu._id})
@@ -63,6 +65,28 @@ exports.getInvest = async (req, res, next) => {
             status: 200});
         }
       }
+      // if(consortium == 'all'){
+      //   const response = await modeloInvest.find({})
+      //                     .populate('consortium')
+      //                     .sort({ created_at: orderNum })
+      //                     .limit(limit * 1)
+      //                     .skip((page - 1)*limit);
+      //   return res.status(200).json({
+      //     response, 
+      //     paginate: { limit, page, totalCurrentPage: response.length+"" }, 
+      //     status: 200});
+      // }
+      // if(consortium == 'all'){
+      //   const response = await modeloInvest.find({})
+      //                     .populate('consortium')
+      //                     .sort({ created_at: orderNum })
+      //                     .limit(limit * 1)
+      //                     .skip((page - 1)*limit);
+      //   return res.status(200).json({
+      //     response, 
+      //     paginate: { limit, page, totalCurrentPage: response.length+"" }, 
+      //     status: 200});
+      // }
       else{
         const response = await modeloInvest.find({})
                           .populate('consortium')
