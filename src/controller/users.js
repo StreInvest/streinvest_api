@@ -84,7 +84,7 @@ exports.deleteClient = async (req, res, next) => {
     const resp = await modelo.findByIdAndDelete(id);
 
     if(resp){
-      return res.status(204)
+      return res.status(204).json({});
     }else{
       return res.status(404).json({response: "User already deleted", status: 404})
     }
