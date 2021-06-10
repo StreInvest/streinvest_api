@@ -7,6 +7,7 @@
 [https://streinvestapi.herokuapp.com/test](https://streinvestapi.herokuapp.com/test)
 
 ```json
+// caminho ate o arquivo ==> config/keys.js
 module.exports = {
   server: {
     port: process.env.PORT || 3000,
