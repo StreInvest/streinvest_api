@@ -5,11 +5,11 @@ module.exports = {
     port: process.env.PORT || 3000,
   },
   database: {
-    connection: 'string de conexao'
+    connection: "mongodb+srv://rpg:rpg@cluster0.0ddez.mongodb.net/streinvest5?retryWrites=true&w=majority"
   },
   criptoPasswd: {
     alg: "aes-256-ctr",
-    hash: "Hash para criptar",
+    hash: "abcdabcd",
     encode_in: "utf8",
     encode_out: "hex"
   }
