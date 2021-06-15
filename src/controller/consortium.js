@@ -73,10 +73,11 @@ exports.getConsortium = async (req, res, next) => {
 exports.getConsortiumEspecifico = async (req, res, next) => {
   try {
     const {token, id} = req.params
+
     const user = await modeloUser.findOne({token: token})
+
     if (user){
       const response = await modelo.findOne({_id:  id});
-
       if (response){
         return res.status(200).json({
           response, 
