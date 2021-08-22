@@ -6,9 +6,8 @@ const users = require('../src/router/users');
 const test = require('../src/router/test');
 const cors = require('cors')
 
-
 app.use(express.json())
-app.use(express.urlencoded({ extended: true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 app.use('/consortium', consortium);
