@@ -6,7 +6,7 @@ module.exports = {
     port: process.env.PORT || 3000,
   },
   database: {
-    connection: dotenv.parsed.chaveDb
+    connection: dotenv.parsed.hashDb
   },
   criptoPasswd: {
     alg: "aes-256-ctr",

@@ -27,11 +27,11 @@ module.exports = {
     port: process.env.PORT || 3000,
   },
   database: {
-    connection: "string de conexao"  // coloque aqui a string de conexao ao banco de dados mongo
+    connection: "string de conexao"  // put the mongo database connection string here
   },
   criptoPasswd: {
     alg: "aes-256-ctr",
-    hash: "hash criptografia" // coloque aqui a chave para criptografia da senha do usuario,
+    hash: "hash criptografia", // put the key for encryption of the user's password here
     encode_in: "utf8",
     encode_out: "hex"
   }
@@ -40,6 +40,6 @@ module.exports = {
 * Another way to put the connection keys is to create a `.env` file at the root of the project, as an example below.
 
 ```
-chaveDb = mongodb+srv://unknown:unknown@cluster0.unknown.mongodb.net/unknown?retryWrites=true&w=majority
+hashDb = mongodb+srv://unknown:unknown@cluster0.unknown.mongodb.net/unknown?retryWrites=true&w=majority
 hashPassword = unknown
 ```
