@@ -37,7 +37,7 @@ module.exports = {
   }
 }
 ``` 
-* Another way to put the connection keys is to create a .env file at the root of the project, as an example below.
+* Another way to put the connection keys is to create a `.env` file at the root of the project, as an example below.
 
 ```
 chaveDb = mongodb+srv://unknown:unknown@cluster0.unknown.mongodb.net/unknown?retryWrites=true&w=majority
