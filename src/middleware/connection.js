@@ -1,5 +1,4 @@
 'use strict'
-
 const mongoose = require('mongoose');
 const keys = require('../../config/keys');
 
@@ -10,10 +9,11 @@ mongoose.set('useUnifiedTopology', true);
 module.exports.connect = () => {
   mongoose.connect(keys.database.connection, err => {
     if (err) {
-      console.log('==> [-] mongodb');
+      console.log('- MongoDB does not run'.red);
     } else {
-      console.log('==> [+] mongodb');
+      console.log('- mongoDB is run'.green);
     }
+    console.log('===================================')
   }, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

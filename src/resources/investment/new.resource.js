@@ -1,9 +1,9 @@
-const NewConsortiumResource = async (res, req, next, modelo, modeloUser) => {
+const NewInvestimentResource = async (res, req, next, modeloInvest, modeloUser) => {
   try {
     const { token } = req.params
     const user = await modeloUser.findOne({ token, master: true })
     if (user) {
-      const response = await new modelo(req.body).save();
+      const response = await new modeloInvest(req.body).save();
       return res.status(201).json({ response, "status": 201 })
     }
     else {
@@ -14,4 +14,4 @@ const NewConsortiumResource = async (res, req, next, modelo, modeloUser) => {
     next(err);
   }
 }
-module.exports = NewConsortiumResource
+module.exports = NewInvestimentResource
