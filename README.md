@@ -12,9 +12,13 @@
 
 [https://streinvestapi.herokuapp.com/test](https://streinvestapi.herokuapp.com/test)
 
-### setup before testing
+### Development configuration
 
-* note the connection and security keys are not in a correct place
+* To run the application under development;
+
+have nodejs at version 12 or higher, to run the development environment, run `npm run development` or `yarn development` if you have yarn installed.
+
+* Note the connection and security keys are not in a correct place;
 
 ```json
 // caminho ate o arquivo ==> config/keys.js
@@ -32,4 +36,10 @@ module.exports = {
     encode_out: "hex"
   }
 }
+``` 
+* Another way to put the connection keys is to create a .env file at the root of the project, as an example below.
+
+```
+chaveDb = mongodb+srv://unknown:unknown@cluster0.unknown.mongodb.net/unknown?retryWrites=true&w=majority
+hashPassword = unknown
 ```
