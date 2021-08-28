@@ -10,6 +10,8 @@
 
 ### endpoint of test
 
+> obsolete
+
 [https://streinvestapi.herokuapp.com/test](https://streinvestapi.herokuapp.com/test)
 
 ### Development configuration
